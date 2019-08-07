@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import EboardMember, HistoryYear, BandPicture, Recording
+from .models import EboardMember, HistoryYear, BandPicture, Recording, FAQ
 # Register your models here.
 admin.site.register(EboardMember)
 admin.site.register(BandPicture)
@@ -19,3 +19,4 @@ class HistoryYearAdmin(admin.ModelAdmin):
 admin.site.register(HistoryYear,HistoryYearAdmin)
 
 admin.site.register(Recording)
+admin.site.register(FAQ)
