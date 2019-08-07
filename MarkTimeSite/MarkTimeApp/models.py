@@ -27,7 +27,7 @@ class BandPicture(models.Model):
     date_taken = models.DateField(default=datetime.date.today)
     # NOTE: Consider removing associated_history_year field and instead populate a history year's page with pictures
     # by using database queries filtered by dates instead
-    associated_history_year = models.ForeignKey(HistoryYear, on_delete=models.CASCADE, null=True,blank=True)
+    associated_history_year = models.ForeignKey(HistoryYear, on_delete=models.SET_NULL, null=True,blank=True)
 
     def __str__(self):
         return str(self.picture_file)
@@ -61,7 +61,7 @@ class EboardMember(models.Model):
 
     # Create a one to one relationship with a picture of the eboard member
     # on_delete set to SET_NULL so a picture being deleted doesn't delete the eboard member
-    eboard_picture = models.OneToOneField(BandPicture,on_delete=models.CASCADE,null=True,blank=True)
+    eboard_picture = models.OneToOneField(BandPicture,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
         info_string = self.first_name + " " + self.last_name
