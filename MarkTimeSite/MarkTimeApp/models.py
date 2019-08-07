@@ -1,6 +1,6 @@
 from django.db import models
 from .validators import validate_recording_file_extension
-
+import datetime
 # Create your models here.
 
 
@@ -14,6 +14,7 @@ class HistoryYear(models.Model):
     def __str__(self):
         return "History for the year " + str(self.year)
 
+
 # This class is used to store a picture of the band
 # That picture can be of an eboard member or of the band
 # fields include the picture file, whether it appears on the front page of the site, a caption,
@@ -23,7 +24,7 @@ class BandPicture(models.Model):
     on_front_page = models.BooleanField()
     caption = models.TextField(max_length=200)
     alt_text = models.TextField(max_length=200)
-    date_taken = models.DateField()
+    date_taken = models.DateField(default=datetime.date.today)
     # NOTE: Consider removing associated_history_year field and instead populate a history year's page with pictures
     # by using database queries filtered by dates instead
     associated_history_year = models.ForeignKey(HistoryYear, on_delete=models.SET_NULL, null=True,blank=True)
@@ -81,3 +82,12 @@ class Recording(models.Model):
 
     def __str__(self):
         return str(self.recording_file)
+
+
+#FAQ class is used to store FAQ regarding the band
+class FAQ(models.Model):
+    question = models.TextField(max_length=200)
+    answer = models.TextField(max_length=200)
+
+    def __str__(self):
+        return "Q: " + self.question + " A: " + self.answer
