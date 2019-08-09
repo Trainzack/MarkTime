@@ -30,7 +30,7 @@ def create_eboard_member(member_picture, f_name = "Dummy",l_name = "Name"):
 
 
 class PictureRelationsTests(TestCase):
-    def test_picture_was_deleted_but_the_eboard_member_its_related_to_was_not_deleted(self):
+    def test_eboard_member_still_exists_after_deleting_band_picture_its_related_to(self):
         # Create BandPicture
         picture = create_band_picture()
         picture.save()
@@ -40,11 +40,13 @@ class PictureRelationsTests(TestCase):
         eboard_member.save()
 
         # Delete the picture and check to assert that the eboard member its associated with still exists
-        picture.picture_file.delete() # Make sure we delete the actual picture file as well
         picture.delete()
         self.assertIs(EboardMember.objects.filter(first_name="Dummy",last_name="Name").exists(),True)
 
-    def test_eboard_member_was_deleted_but_the_band_picture_its_related_to_was_not_deleted(self):
+        # Delete remaining objects
+        eboard_member.delete()
+
+    def test_band_picture_still_exists_after_deleting_eboard_member_its_reltated_to(self):
         filter_caption = "Test caption"
         # Create BandPicture
         picture = create_band_picture(filter_caption)
@@ -56,7 +58,40 @@ class PictureRelationsTests(TestCase):
 
         # Delete the EboardMember and check to assert that the picture its associated with still exists
         eboard_member.delete()
+
+        # Delete picture file
+        picture.picture_file.delete()
         self.assertIs(BandPicture.objects.filter(caption=filter_caption).exists(),True)
 
-        # Delete the picture file afterwards to make sure its not saved
+    def test_history_year_still_exists_after_deleting_band_picture_its_related_to(self):
+        test_year = 1990
+        # Create BandPicture
+        picture = create_band_picture()
+        picture.save()
+
+        # Create the history year and add it to the BandPicture's foreign key
+        history_year = HistoryYear(year=test_year,summary="Lots happened this year")
+        history_year.save()
+        picture.associated_history_year = history_year
+
+        # Delete the picture and check to see if the HistoryYear still exists
+        picture.delete()
+        self.assertIs(HistoryYear.objects.filter(year=test_year).exists(),True)
+
+    def test_band_picture_still_exists_after_deleting_history_year_its_related_to(self):
+        test_caption = "Test caption"
+
+        # Create BandPicture
+        picture = create_band_picture(test_caption)
+        picture.save()
+
+        # Create the history year and add it to the BandPicture's foreign key
+        history_year = HistoryYear(year=1990,summary="Lots happened this year")
+        history_year.save()
+        picture.associated_history_year=history_year
+
+        # Delete the picture file
         picture.picture_file.delete()
+
+        # Delete the history year and check to see if the BandPicture still exists
+        self.assertIs(BandPicture.objects.filter(caption=test_caption).exists(),True)

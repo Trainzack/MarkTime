@@ -1,0 +1,11 @@
+{% extends 'MarkTimeApp/Base.html' %}
+{% block content %}
+    <h1>Eboard Members</h1>
+    <br/>
+    {% for board_member in eboard_members %}
+        <h2>{{ board_member.first_name }} {{ board_member.last_name }}</h2>
+        <p>Position: {{ board_member.eboard_position }}</p>
+        <p>About Me: {{ board_member.about_me }}</p>
+        <br/>
+    {% endfor %}
+{% endblock content %}

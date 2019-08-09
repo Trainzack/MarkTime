@@ -15,11 +15,20 @@ class HistoryYear(models.Model):
         return "History for the year " + str(self.year)
 
 
+class BandPictureQuerySet(models.QuerySet):
+    def delete(self,*args,**kwargs):
+        for obj in self:
+            obj.picture_file.delete()
+        super(BandPictureQuerySet,self).delete(*args,**kwargs)
+
+
 # This class is used to store a picture of the band
 # That picture can be of an eboard member or of the band
 # fields include the picture file, whether it appears on the front page of the site, a caption,
 # alt text for the picture, and the date it was taken
 class BandPicture(models.Model):
+    objects = BandPictureQuerySet.as_manager()
+
     picture_file = models.ImageField(upload_to="pictures")
     on_front_page = models.BooleanField()
     caption = models.TextField(max_length=200)
@@ -32,6 +41,9 @@ class BandPicture(models.Model):
     def __str__(self):
         return str(self.picture_file)
 
+    def delete(self, *args, **kwargs):
+        self.picture_file.delete()
+        super(BandPicture,self).delete(*args,**kwargs)
 
 # This class is used to store an eboard member
 # Fields include first name, last name, eboard position, an about_me section, and a picture
