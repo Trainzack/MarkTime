@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from .models import EboardMember
+from .models import EboardMember, BandPicture
 
 # Create your views here.
 
 
 def index(request):
-    return render(request, 'MarkTimeApp/index.html')
+    front_page_pictures = BandPicture.objects.filter(on_front_page=True)
+    context = {"front_page_pictures": front_page_pictures}
+    return render(request, 'MarkTimeApp/index.html', context)
     # return HttpResponse("Dummy response for the index page")
 
 

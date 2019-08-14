@@ -15,11 +15,13 @@ class HistoryYear(models.Model):
         return "History for the year " + str(self.year)
 
 
+# This class exists to aid in deleting BandPictures through the admin page
+# It allows a group of BandPicture to be selected and all delete their picture files upon deletion
 class BandPictureQuerySet(models.QuerySet):
-    def delete(self,*args,**kwargs):
+    def delete(self, *args, **kwargs):
         for obj in self:
             obj.picture_file.delete()
-        super(BandPictureQuerySet,self).delete(*args,**kwargs)
+        super(BandPictureQuerySet, self).delete(*args, **kwargs)
 
 
 # This class is used to store a picture of the band
@@ -44,6 +46,7 @@ class BandPicture(models.Model):
     def delete(self, *args, **kwargs):
         self.picture_file.delete()
         super(BandPicture,self).delete(*args,**kwargs)
+
 
 # This class is used to store an eboard member
 # Fields include first name, last name, eboard position, an about_me section, and a picture
@@ -96,7 +99,7 @@ class Recording(models.Model):
         return str(self.recording_file)
 
 
-#FAQ class is used to store FAQ regarding the band
+# FAQ class is used to store FAQ regarding the band
 class FAQ(models.Model):
     question = models.TextField(max_length=200)
     answer = models.TextField(max_length=200)
