@@ -1,12 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from .models import EboardMember
+from .models import EboardMember, BandPicture, FAQ
 
 # Create your views here.
 
 
 def index(request):
-    return render(request, 'MarkTimeApp/index.html')
+    front_page_pictures = BandPicture.objects.filter(on_front_page=True)
+    context = {
+        "front_page_pictures": front_page_pictures,
+        "in_home": True
+    }
+    return render(request, 'MarkTimeApp/index.html', context)
     # return HttpResponse("Dummy response for the index page")
 
 
@@ -21,7 +26,20 @@ def eboard_member(request, eboard_first_name, eboard_last_name):
     response += "<img src=\"" + str(board_member.eboard_picture.picture_file.url) + "\"/>test"
     return HttpResponse(response)
 
+
 def leadership(request):
     eboard_members = EboardMember.objects.all()
-    context = {"eboard_members": eboard_members}
+    context = {
+        "eboard_members": eboard_members,
+        "in_leadership": True
+    }
     return render(request, 'MarkTimeApp/Leadership.html', context)
+
+
+def faq(request):
+    faq = FAQ.objects.all()
+    context = {
+        "FAQ": faq,
+        "in_faq": True
+    }
+    return render(request, 'MarkTimeApp/FAQ.html',context)

@@ -1,5 +1,6 @@
 from django.db import models
 from .validators import validate_recording_file_extension
+from PIL import Image
 import datetime
 # Create your models here.
 
@@ -15,11 +16,13 @@ class HistoryYear(models.Model):
         return "History for the year " + str(self.year)
 
 
+# This class exists to aid in deleting BandPictures through the admin page
+# It allows a group of BandPicture to be selected and all delete their picture files upon deletion
 class BandPictureQuerySet(models.QuerySet):
-    def delete(self,*args,**kwargs):
+    def delete(self, *args, **kwargs):
         for obj in self:
             obj.picture_file.delete()
-        super(BandPictureQuerySet,self).delete(*args,**kwargs)
+        super(BandPictureQuerySet, self).delete(*args, **kwargs)
 
 
 # This class is used to store a picture of the band
@@ -44,6 +47,15 @@ class BandPicture(models.Model):
     def delete(self, *args, **kwargs):
         self.picture_file.delete()
         super(BandPicture,self).delete(*args,**kwargs)
+
+    # Overridden save method that resizes images to 1280x720 Currently not in use
+    #def save(self, *args, **kwargs):
+    #    super(BandPicture,self).save(*args, **kwargs)
+    #    image = Image.open(self.picture_file.path)
+    #    image = image.resize((1280,720),Image.ANTIALIAS)
+    #    image.save(self.picture_file.path)
+
+
 
 # This class is used to store an eboard member
 # Fields include first name, last name, eboard position, an about_me section, and a picture
@@ -88,18 +100,18 @@ class EboardMember(models.Model):
 class Recording(models.Model):
     recording_file = models.FileField(upload_to='recordings',validators=[validate_recording_file_extension])
     date_recorded = models.DateField
-    performer = models.CharField(max_length = 25)
-    event = models.CharField(max_length = 25)
+    performer = models.CharField(max_length=50)
+    event = models.CharField(max_length=50)
     #associated_song = models.ForeignKey(Song,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
         return str(self.recording_file)
 
 
-#FAQ class is used to store FAQ regarding the band
+# FAQ class is used to store FAQ regarding the band
 class FAQ(models.Model):
-    question = models.TextField(max_length=200)
-    answer = models.TextField(max_length=200)
+    question = models.TextField(max_length=1000)
+    answer = models.TextField(max_length=1000)
 
     def __str__(self):
         return "Q: " + self.question + " A: " + self.answer
