@@ -1,0 +1,12 @@
+{% extends "MarkTimeApp/Base.html" %}
+{% block content %}
+<div class="container my-2 justify-content-right text-center">
+    <h1><b><u>Frequently Asked Questions</u></b></h1>
+    {% for question in FAQ %}
+        <div class="container my-4 text-left">
+            <h5>{{ question.question }}</h5>
+            <p>{{ question.answer }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -1,14 +1,32 @@
 {% extends 'MarkTimeApp/Base.html' %}
 {% block content %}
-    <h1>Eboard Members</h1>
-    <br/>
 
-    <!-- for every eboard member construct block of html -->
+
+    <!-- for every eboard member construct block of html
     {% for board_member in eboard_members %}
         <h2>{{ board_member.first_name }} {{ board_member.last_name }}</h2>
         <p>Position: {{ board_member.eboard_position }}</p>
         <p>About Me: {{ board_member.about_me }}</p>
-        <img src="{{board_member.eboard_picture.picture_file.url}}">
+        <img src="{{board_member.eboard_picture.picture_file.url}}"/>
         <br/>
-    {% endfor %}
+    {% endfor %} -->
+
+    <div class="container">
+        <h1><b>Eboard Members</b></h1>
+        <div class="row">
+            {% for board_member in eboard_members %}
+            <div class="col-md-4">
+                <div class="card border-success bg-dark text-white my-3 text-center px-2">
+                    <div class="card-header">
+                        <h5 class="card-text">{{ board_member.eboard_position }}</h5>
+                    </div>
+                    <img class="card-img-top" src="{{board_member.eboard_picture.picture_file.url}}" alt="{{board_member.eboard_picture.alt_text"/>
+                    <div class="card-body">
+                        <p class="card-text">{{board_member.first_name}} {{board_member.last_name}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
