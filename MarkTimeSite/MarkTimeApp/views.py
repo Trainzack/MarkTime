@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from .models import EboardMember, BandPicture, FAQ
+from .models import EboardMember, BandPicture, FAQ, Recording
 
 # Create your views here.
 
@@ -43,3 +43,12 @@ def faq(request):
         "in_faq": True
     }
     return render(request, 'MarkTimeApp/FAQ.html',context)
+
+
+def songs(request):
+    recordings = Recording.objects.all()
+    context = {
+        "recordings": recordings,
+        "in_songs": True
+    }
+    return render(request, 'MarkTimeApp/Songs.html',context)

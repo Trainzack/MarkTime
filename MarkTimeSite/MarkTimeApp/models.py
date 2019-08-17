@@ -98,14 +98,20 @@ class EboardMember(models.Model):
 # Fields include the recording's file (which is validated using a custom validator), the date is was recorded,
 # who performed the song, and the event it was performed at.
 class Recording(models.Model):
-    recording_file = models.FileField(upload_to='recordings',validators=[validate_recording_file_extension])
+    recording_file = models.FileField(upload_to='recordings', validators=[validate_recording_file_extension], null=True)
     date_recorded = models.DateField
     performer = models.CharField(max_length=50)
     event = models.CharField(max_length=50)
-    #associated_song = models.ForeignKey(Song,on_delete=models.SET_NULL,null=True,blank=True)
+    songname = models.CharField(max_length=50, default='')
+    artist = models.CharField(max_length=50, default='')
+    # associated_song = models.ForeignKey(Song,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
         return str(self.recording_file)
+
+    def delete(self, *args, **kwargs):
+        self.recording_file.delete()
+        super(Recording,self).delete(*args,**kwargs)
 
 
 # FAQ class is used to store FAQ regarding the band
