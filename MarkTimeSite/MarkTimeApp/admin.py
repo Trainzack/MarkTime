@@ -1,9 +1,10 @@
 from django.contrib import admin
-
-from .models import EboardMember, HistoryYear, BandPicture, Recording, FAQ
+from django.contrib.auth.models import Group
+from .models import EboardMember, HistoryYear, BandPicture, Recording, FAQ, Announcement
 # Register your models here.
-admin.site.register(EboardMember)
-admin.site.register(BandPicture)
+admin.site.unregister(Group)
+admin.site.register(FAQ)
+admin.site.register(Announcement)
 
 
 class BandPictureInLine(admin.StackedInline):
@@ -16,7 +17,23 @@ class HistoryYearAdmin(admin.ModelAdmin):
     inlines = [BandPictureInLine]
 
 
-admin.site.register(HistoryYear,HistoryYearAdmin)
+class BandPictureAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'picture_file', 'on_front_page', 'display_priority')
+    list_editable = ('on_front_page', 'display_priority')
+    list_filter = ('on_front_page',)
 
-admin.site.register(Recording)
-admin.site.register(FAQ)
+
+class EboardMemberAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'eboard_position')
+
+
+class RecordingAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'in_books')
+    list_editable = ('in_books',)
+    list_filter = ('songname', 'in_books', 'date_recorded')
+
+
+admin.site.register(BandPicture, BandPictureAdmin)
+admin.site.register(EboardMember, EboardMemberAdmin)
+admin.site.register(HistoryYear, HistoryYearAdmin)
+admin.site.register(Recording, RecordingAdmin)

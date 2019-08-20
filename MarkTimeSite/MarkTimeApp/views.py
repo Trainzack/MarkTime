@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from .models import EboardMember, BandPicture, FAQ, Recording
+from .models import EboardMember, BandPicture, FAQ, Recording, Announcement
 
 # Create your views here.
 
 
 def index(request):
-    front_page_pictures = BandPicture.objects.filter(on_front_page=True)
+    front_page_pictures = BandPicture.objects.filter(on_front_page=True).order_by('-display_priority')
+    announcements = Announcement.objects.all()
     context = {
         "front_page_pictures": front_page_pictures,
+        "announcements": announcements,
         "in_home": True
     }
     return render(request, 'MarkTimeApp/index.html', context)

@@ -20,8 +20,9 @@
                         <td>{{song.performer}}</td>
                         <td>
                             {% if song.recording_file %}
-                                <audio controls>
-                                <source src="{{ song.recording_file.url }}" type="audio/mpeg"/>
+                                <audio controls preload="metadata">
+                                    <source src="{{ song.recording_file.url }}" type="audio/mpeg"/>
+                                    Your browser does not support the audio element
                                 </audio>
                             {% else %}
                                 No Recording Available

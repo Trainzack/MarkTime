@@ -1,12 +1,13 @@
 {% extends "MarkTimeApp/Base.html" %}
 {% block content %}
-<div class="container my-2 justify-content-right text-center">
-    <h1><b><u>Frequently Asked Questions</u></b></h1>
-    {% for question in FAQ %}
-        <div class="container my-4 text-left">
-            <h5>{{ question.question }}</h5>
-            <p>{{ question.answer }}</p>
+    <div class="container">
+        <div class="section-header">
+            <h3>Frequently Asked Questions</h3>
+            <hr/>
         </div>
-    {% endfor %}
-</div>
+        {% for question in FAQ %}
+        <p class="mb-1"><b>{{ question.question }}</b></p>
+        <p class="mb-5">{{ question.answer }}</p>
+        {% endfor %}
+    </div>
 {% endblock content %}

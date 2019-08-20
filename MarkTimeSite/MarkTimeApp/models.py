@@ -34,6 +34,7 @@ class BandPicture(models.Model):
 
     picture_file = models.ImageField(upload_to="pictures")
     on_front_page = models.BooleanField()
+    display_priority = models.IntegerField(default=0)
     caption = models.TextField(max_length=200)
     alt_text = models.TextField(max_length=200)
     date_taken = models.DateField(default=datetime.date.today)
@@ -99,19 +100,20 @@ class EboardMember(models.Model):
 # who performed the song, and the event it was performed at.
 class Recording(models.Model):
     recording_file = models.FileField(upload_to='recordings', validators=[validate_recording_file_extension], null=True)
-    date_recorded = models.DateField
+    date_recorded = models.DateField(default=datetime.date.today)
     performer = models.CharField(max_length=50)
     event = models.CharField(max_length=50)
     songname = models.CharField(max_length=50, default='')
     artist = models.CharField(max_length=50, default='')
+    in_books = models.BooleanField(default=False)
     # associated_song = models.ForeignKey(Song,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
-        return str(self.recording_file)
+        return str(self.songname)
 
     def delete(self, *args, **kwargs):
         self.recording_file.delete()
-        super(Recording,self).delete(*args,**kwargs)
+        super(Recording, self).delete(*args, **kwargs)
 
 
 # FAQ class is used to store FAQ regarding the band
@@ -120,4 +122,12 @@ class FAQ(models.Model):
     answer = models.TextField(max_length=1000)
 
     def __str__(self):
-        return "Q: " + self.question + " A: " + self.answer
+        return "Q: " + self.question
+
+
+class Announcement(models.Model):
+    title = models.CharField(max_length=30)
+    information = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.title
