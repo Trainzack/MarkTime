@@ -1,0 +1,13 @@
+{% extends "MarkTimeApp/PageWithCarousel.html" %}
+{% block content %}
+    <div class="container">
+        <!-- If no carousel was generated for this page, create a div for section header -->
+        {% if not page_pictures %}
+            <div class="section-header">
+                <h3>The Bronco Pep Band of {{history_object.year}} - {{history_object.year|add:"1"}}</h3>
+                <hr/>
+            </div>
+        {% endif %}
+        <p>{{history_object.summary|linebreaks}}</p>
+    </div>
+{% endblock content %}

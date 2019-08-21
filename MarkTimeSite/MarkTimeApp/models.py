@@ -8,7 +8,7 @@ import datetime
 # This class is used to store a band's year in review, it contains the year, a summary of what happened in that year,
 # and pictures associated with that year.
 class HistoryYear(models.Model):
-    year = models.IntegerField()
+    year = models.IntegerField(unique=True)
     summary = models.TextField()
     # Place another attribute here for keys to multiple pictures
 
