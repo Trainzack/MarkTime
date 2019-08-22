@@ -27,7 +27,9 @@ class BandPictureAdmin(admin.ModelAdmin):
 
 
 class EboardMemberAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'eboard_position')
+    list_display = ('__str__', 'eboard_position','eboard_picture','is_active_eboard')
+    list_editable = ('is_active_eboard',)
+    list_filter = ('is_active_eboard',)
 
 
 class RecordingAdmin(admin.ModelAdmin):

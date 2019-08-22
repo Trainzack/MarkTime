@@ -30,7 +30,7 @@ def eboard_member(request, eboard_first_name, eboard_last_name):
 
 
 def history_index(request):
-    history_objects = HistoryYear.objects.all()
+    history_objects = HistoryYear.objects.all().order_by('year')
     context = {
         "history_objects": history_objects,
         "in_history": True

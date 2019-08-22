@@ -13,14 +13,16 @@
 
             <!-- This is where the carousel is defined. Its set to a sliding animation using an interval of 4000ms for auto slide -->
             <div id="BandPicCarousel" class="carousel slide border-dark" data-ride="carousel" data-interval="4000">
-                <ol class="carousel-indicators">
-                    <!-- First indicator -->
-                    <li data-target="#BandPicCarousel" data-slide-to="0" class="active"></li>
-                    <!-- For loop to make indicators here. Uses the forloop counter -->
-                    {% for picture_object in page_pictures|slice:"1:" %}
-                        <li data-target="#BandPicCarousel" data-slide-to="{{ forloop.counter }}"></li>
-                    {% endfor %}
-                </ol>
+                {% if page_pictures.count > 1 %}
+                    <ol class="carousel-indicators">
+                        <!-- First indicator -->
+                        <li data-target="#BandPicCarousel" data-slide-to="0" class="active"></li>
+                        <!-- For loop to make indicators here. Uses the forloop counter -->
+                        {% for picture_object in page_pictures|slice:"1:" %}
+                            <li data-target="#BandPicCarousel" data-slide-to="{{ forloop.counter }}"></li>
+                        {% endfor %}
+                    </ol>
+                {% endif %}
 
                 <div class="carousel-inner">
                     <!-- First carousel item with caption. Assume there is at least 1 picture on the front page. -->
@@ -45,6 +47,7 @@
 
                 <!-- These are the controls for manually going through the carousel -->
                 <!-- They can be removed if no controls are desired -->
+                {% if page_pictures.count > 1 %}
                 <a class="carousel-control-prev" href="#BandPicCarousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -53,6 +56,7 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
+                {% endif %}
             </div> <!-- End Carousel -->
         </div>
     {% endif %}

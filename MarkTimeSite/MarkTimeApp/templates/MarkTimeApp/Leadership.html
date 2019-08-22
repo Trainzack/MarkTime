@@ -1,18 +1,21 @@
 {% extends 'MarkTimeApp/Base.html' %}
 {% block content %}
     <div class="container">
-        <h1 class="text-center"><b>Eboard Members</b></h1>
-        <div class="row">
+        <div class="section-header">
+            <h3>Current Officers</h3>
+            <hr/>
+        </div>
+        <div class="row row-eq-height">
             <!-- For every eboard member make a boostrap card that fits into a boostrap column -->
             {% for board_member in eboard_members %}
-            <div class="col-md-4">
-                <div class="card border-success bg-dark text-white my-3 text-center px-2">
+            <div class="col-lg-3 col-md-4 col-6 d-flex align-items-stretch">
+                <div class="card bg-dark-bronco my-3 text-center px-2 eboard-card-border text-color-gold">
                     <div class="card-header">
                         <h5 class="card-text">{{ board_member.eboard_position }}</h5>
                     </div>
-                    <img class="card-img-top" src="{{board_member.eboard_picture.picture_file.url}}" alt="{{board_member.eboard_picture.alt_text"/>
+                    <img class="card-img-top rounded" src="{{board_member.eboard_picture.picture_file.url}}" alt="{{board_member.eboard_picture.alt_text"/>
                     <div class="card-body">
-                        <p class="card-text">{{board_member.first_name}} {{board_member.last_name}}</p>
+                        <p class="card-text font-weight-bold">{{board_member.first_name}} {{board_member.last_name}}</p>
                     </div>
                 </div>
             </div>

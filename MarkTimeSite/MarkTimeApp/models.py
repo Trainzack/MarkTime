@@ -32,7 +32,7 @@ class BandPictureQuerySet(models.QuerySet):
 class BandPicture(models.Model):
     objects = BandPictureQuerySet.as_manager()
 
-    picture_file = models.ImageField(upload_to="pictures")
+    picture_file = models.ImageField(upload_to="pictures/band")
     on_front_page = models.BooleanField()
     display_priority = models.IntegerField(default=0)
     caption = models.TextField(max_length=200)
@@ -79,10 +79,12 @@ class EboardMember(models.Model):
         ('Property Manager', 'Property Manager'),
         ('Historian', 'Historian'),
         ('Webmaster', 'Webmaster'),
-        ('Section Leader', 'Section Leader')
+        ('Section Leader', 'Section Leader'),
+        ('Advisor', 'Advisor')
     )
     eboard_position = models.CharField(max_length=20, choices=EBOARD_POSITIONS)
     about_me = models.TextField()
+    is_active_eboard = models.BooleanField(default=True)
 
     # Create a one to one relationship with a picture of the eboard member
     # on_delete set to SET_NULL so a picture being deleted doesn't delete the eboard member
