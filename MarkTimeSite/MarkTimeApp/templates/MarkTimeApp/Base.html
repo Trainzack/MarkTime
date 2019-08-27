@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" type="image/png" href="{% static 'MarkTimeApp/favicon.png' %}" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'MarkTimeApp/custom.css' %}"/>
@@ -25,14 +25,55 @@
 
       <nav class="navbar navbar-expand-md navbar-dark bg-dark-bronco">
         <!-- For a toggleable nav button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links-2">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" style="justify-content: center" id="navbar-links-2">
+          <ul class="navbar-nav">
+            <!-- Put nav links in here: Each Nav link goes inside an li element -->
+            <!-- Check for context variable to determine which nav link is currently active -->
+            <!-- url variable names come from MarkTimeApp/urls.py -->
+            <li class="nav-item nav {% if in_home %}active{% endif %}">
+              <a class="nav-link" href="{% url 'MarkTime-Index' %}">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle {% if in_leadership or in_history %}active{% endif %}" href="#" id="navbarDropdown" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
+              <div class="dropdown-menu bg-dark-bronco" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item {% if in_leadership %}active{% endif %}" href="{% url 'MarkTime-Leadership' %}">Leadership</a>
+                <a class="dropdown-item {% if in_history %}active{% endif %}" href="{% url 'MarkTime-HistoryIndex' %}">History</a>
+              </div>
+            </li>
+            <li class="nav-item nav {% if in_faq %}active{% endif %}">
+              <a class="nav-link" href="{% url 'MarkTime-FAQ' %}">FAQ</a>
+            </li>
+            <li class="nav-item nav {% if in_songs %}active{% endif %}">
+              <a class="nav-link" href="{% url 'MarkTime-Songs' %}">Songs</a>
+            </li>
+            <li class="nav-item nav {% if in_contact %}active{% endif %}">
+              <a class="nav-link" href="{% url 'MarkTime-Contact' %}">Contact Us</a>
+            </li>
+           </ul>
+        </div>
+      </nav> <!-- End Nav -->
+
+
+      <hr class="bg-gold mb-3"/>
+      <!--
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark-bronco">
+      -->
+        <!-- For a toggleable nav button -->
+      <!--
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" style="justify-content: center" id="navbar-links">
           <div class="navbar-nav">
+      -->
             <!-- Put nav links in here -->
             <!-- Check for context variable to determine which nav link is currently active -->
             <!-- url variable names come from MarkTimeApp/urls.py -->
+      <!--
             <a class="nav-item nav-link {% if in_home %}active{% endif %}" href="{% url 'MarkTime-Index' %}">Home</a>
             <a class="nav-item nav-link {% if in_leadership %}active{% endif %}" href="{% url 'MarkTime-Leadership' %}">Leadership</a>
             <a class="nav-item nav-link {% if in_history %}active{% endif %}"href="{% url 'MarkTime-HistoryIndex' %}">History</a>
@@ -41,8 +82,9 @@
             <a class="nav-item nav-link {% if in_contact %}active{% endif %}" href="{% url 'MarkTime-Contact'%}">Contact Us</a>
           </div>
         </div>
-      </nav> <!-- End Nav -->
-      <hr class="bg-gold mb-3"/>
+      </nav>
+      --><!-- End Nav -->
+
     </header>
 
     <!-- blocks for other templates to expand this base template -->
