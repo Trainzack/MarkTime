@@ -140,20 +140,24 @@ hr{
     border-color: #e6b800;
 }
 
-.fa{
-    font-size: 2rem;
-}
-
-a.fa{
+a.fa, .fa{
     font-size: 2rem;
 }
 
 .fa-instagram{
-    color: purple;
+    color: MediumOrchid;
+}
+
+.fa-instagram:hover{
+    color: DarkMagenta;
 }
 
 .fa-youtube{
-    color: red;
+    color: Red;
+}
+
+.fa-youtube:hover{
+    color: DarkRed
 }
 
 .dropdown-item{
@@ -178,4 +182,8 @@ a.fa{
         border-radius: 0px 0px 4px 4px;
         border-color: #ffcc00;
     }
+}
+
+audio:focus{
+    outline: none;
 }
