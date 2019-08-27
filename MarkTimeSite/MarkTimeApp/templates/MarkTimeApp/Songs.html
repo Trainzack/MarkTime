@@ -8,17 +8,17 @@
                 <tr>
                     <th>Song Name</th>
                     <th>Artist</th>
-                    <th>Performer</th>
+                    <!--<th>Performer</th>-->
                     <th>Recording</th>
                 </tr>
             </thead>
             <tbody>
                 {% for song in recordings %}
                     <tr>
-                        <td>{{song.songname}}</td>
-                        <td>{{song.artist}}</td>
-                        <td>{{song.performer}}</td>
-                        <td>
+                        <td class="align-middle">{{song.songname}}</td>
+                        <td class="align-middle">{{song.artist}}</td>
+                        <!--<td>{{song.performer}}</td>-->
+                        <td class="align-middle">
                             {% if song.recording_file %}
                                 <audio controls>
                                     <source src="{{ song.recording_file.url }}" type="audio/mpeg">

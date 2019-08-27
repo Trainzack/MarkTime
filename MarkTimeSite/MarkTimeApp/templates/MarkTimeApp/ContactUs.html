@@ -6,14 +6,14 @@
             <h3>Contact Us</h3>
             <hr/>
         </div>
-        <form method="post" class="border-bronco">
+        <form method="post" class="border-bronco px-3 py-3 bg-form justify-content-center text-center">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Contact Form</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-success" type="submit">Submit</button>
+                <button class="btn btn-outline-success submit-button" type="submit">Submit</button>
             </div>
         </form>
     </div>

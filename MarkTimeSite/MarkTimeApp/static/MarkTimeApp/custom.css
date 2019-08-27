@@ -38,6 +38,10 @@ body{
     background-color: #ffcc00
 }
 
+.bg-form{
+    background-color: rgba(0,180,0,0.025)
+}
+
 .banner{
     width: 60%;
     max-width: 600px;
@@ -184,6 +188,23 @@ a.fa, .fa{
     }
 }
 
+/* This rule prevents audio elements from getting outline when you click play on them */
 audio:focus{
     outline: none;
+}
+
+/* These two rules are used to style form inputs, labels, and submit buttons*/
+.control-label, .contact-form-input{
+    min-width: 350px;
+    width: 80%;
+    text-align: left;
+}
+
+.submit-button{
+    min-width: 300px;
+    width: 40%
+}
+
+.table-data{
+    vertical-align: middle;
 }
