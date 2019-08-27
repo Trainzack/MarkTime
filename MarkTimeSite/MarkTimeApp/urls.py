@@ -9,5 +9,6 @@ urlpatterns = [
     path('FAQ/',views.faq, name='MarkTime-FAQ'),
     path('songs/', views.songs, name='MarkTime-Songs'),
     path('history/', views.history_index, name='MarkTime-HistoryIndex'),
-    path('history/<int:queried_year>', views.history_page, name='MarkTime-HistoryPage')
+    path('history/<int:queried_year>', views.history_page, name='MarkTime-HistoryPage'),
+    path('contact-us', views.contact_us, name='MarkTime-Contact')
 ]

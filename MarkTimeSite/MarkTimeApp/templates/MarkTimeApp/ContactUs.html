@@ -1,0 +1,20 @@
+{% extends "MarkTimeApp/Base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <div class="section-header">
+            <h3>Contact Us</h3>
+            <hr/>
+        </div>
+        <form method="post" class="border-bronco">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Contact Form</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-success" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

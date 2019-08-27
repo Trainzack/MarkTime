@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'MarkTimeApp.apps.MarktimeappConfig'
+    'MarkTimeApp.apps.MarktimeappConfig',
+    'crispy_forms',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -120,3 +122,19 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = "/media/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'christianmunoz110@gmail.com'
+EMAIL_HOST_PASSWORD = 'yzujbwnloebcspzh'
+
+AWS_ACCESS_KEY_ID = 'AKIAXVYUYLOH5QEWBQOE'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'django-marktime-files'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

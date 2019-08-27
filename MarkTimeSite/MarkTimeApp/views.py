@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, Http404
 from .models import EboardMember, BandPicture, FAQ, Recording, Announcement, HistoryYear
-
+from .forms import ContactForm
+from django.template.loader import render_to_string
 # Create your views here.
 
 
@@ -63,9 +65,9 @@ def leadership(request):
 
 
 def faq(request):
-    faq = FAQ.objects.all()
+    faq_objects = FAQ.objects.all()
     context = {
-        "FAQ": faq,
+        "FAQ": faq_objects,
         "in_faq": True
     }
     return render(request, 'MarkTimeApp/FAQ.html',context)
@@ -78,3 +80,28 @@ def songs(request):
         "in_songs": True
     }
     return render(request, 'MarkTimeApp/Songs.html',context)
+
+
+def contact_us(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['name'] + "'s Contact Form Response"
+            email_message_context = {
+                "name": form.cleaned_data['name'],
+                "email": form.cleaned_data['contacter_email'],
+                "instrument": form.cleaned_data['instrument'],
+                "form_message": form.cleaned_data['message']
+            }
+            try:
+
+                send_mail(subject,
+                          render_to_string('MarkTimeApp/ContactResponse.txt', email_message_context),
+                          'christianmunoz110@gmail.com',
+                          ['christianmunoz110@gmail.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('MarkTime-Index')
+    return render(request, 'MarkTimeApp/ContactUs.html', {'form': form, 'in_contact': True})

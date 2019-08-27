@@ -10,6 +10,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'MarkTimeApp/custom.css' %}"/>
+    <!-- For Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Mark Time!</title>
   </head>
   <body>
@@ -36,6 +38,7 @@
             <a class="nav-item nav-link {% if in_history %}active{% endif %}"href="{% url 'MarkTime-HistoryIndex' %}">History</a>
             <a class="nav-item nav-link {% if in_faq %}active{% endif %}" href="{% url 'MarkTime-FAQ'%}">FAQ</a>
             <a class="nav-item nav-link {% if in_songs %}active{% endif %}" href="{% url 'MarkTime-Songs'%}">Songs</a>
+            <a class="nav-item nav-link {% if in_contact %}active{% endif %}" href="{% url 'MarkTime-Contact'%}">Contact Us</a>
           </div>
         </div>
       </nav> <!-- End Nav -->
@@ -58,7 +61,12 @@
       <hr class="bg-bronco mt-3 mb-3"/>
       <div class="container-fluid text-center">
         <p>For more information about the Bronco Pep Band, contact us at <a class="bronco-link" href="mailto:broncopepband@gmail.com"><b>broncopepband@gmail.com</b></a>,
-          or see our <a class="bronco-link" href="#"><b>Contact Us</b></a> page.</p>
+          or see our <a class="bronco-link" href="{% url 'MarkTime-Contact' %}"><b>Contact Us</b></a> page.</p>
+        <p>
+          <a href="https://www.facebook.com/broncopepband/" class="fa fa-facebook-square text-decoration-none" style="font-size: 2rem;"></a>
+          <a href="https://www.instagram.com/broncopepband/" class="fa fa-instagram text-decoration-none"></a>
+          <a href="https://www.youtube.com/channel/UCAEAwe6f_qfriwms0-T9iSQ" class="fa fa-youtube text-decoration-none"></a>
+        </p>
       </div>
     </footer>
 

@@ -32,7 +32,7 @@ class BandPictureQuerySet(models.QuerySet):
 class BandPicture(models.Model):
     objects = BandPictureQuerySet.as_manager()
 
-    picture_file = models.ImageField(upload_to="pictures/band")
+    picture_file = models.ImageField(upload_to="pictures/band", null=False)
     on_front_page = models.BooleanField()
     display_priority = models.IntegerField(default=0)
     caption = models.TextField(max_length=200)
@@ -40,7 +40,7 @@ class BandPicture(models.Model):
     date_taken = models.DateField(default=datetime.date.today)
     # NOTE: Consider removing associated_history_year field and instead populate a history year's page with pictures
     # by using database queries filtered by dates instead
-    associated_history_year = models.ForeignKey(HistoryYear, on_delete=models.SET_NULL, null=True,blank=True)
+    associated_history_year = models.ForeignKey(HistoryYear, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return str(self.picture_file)
@@ -50,12 +50,20 @@ class BandPicture(models.Model):
         super(BandPicture,self).delete(*args,**kwargs)
 
     # Overridden save method that resizes images to 1280x720 Currently not in use
-    #def save(self, *args, **kwargs):
+    # def save(self, *args, **kwargs):
     #    super(BandPicture,self).save(*args, **kwargs)
     #    image = Image.open(self.picture_file.path)
     #    image = image.resize((1280,720),Image.ANTIALIAS)
     #    image.save(self.picture_file.path)
 
+
+# This class exists to aid in deleting BandPictures through the admin page
+# It allows a group of BandPicture to be selected and all delete their picture files upon deletion
+class EboardMemberQuerySet(models.QuerySet):
+    def delete(self, *args, **kwargs):
+        for obj in self:
+            obj.eboard_picture.delete()
+        super(EboardMemberQuerySet, self).delete(*args, **kwargs)
 
 
 # This class is used to store an eboard member
@@ -63,6 +71,8 @@ class BandPicture(models.Model):
 # Eboard member objects have a one to one relationship with a given picture. Ideally that picture
 # is of the eboard member.
 class EboardMember(models.Model):
+    objects = EboardMemberQuerySet.as_manager()
+
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
 
@@ -84,17 +94,18 @@ class EboardMember(models.Model):
     )
     eboard_position = models.CharField(max_length=20, choices=EBOARD_POSITIONS)
     about_me = models.TextField()
-    is_active_eboard = models.BooleanField(default=True)
-
-    # Create a one to one relationship with a picture of the eboard member
-    # on_delete set to SET_NULL so a picture being deleted doesn't delete the eboard member
-    eboard_picture = models.OneToOneField(BandPicture,on_delete=models.SET_NULL,null=True,blank=True)
+    # is_active_eboard = models.BooleanField(default=True)
+    eboard_picture = models.ImageField(upload_to="pictures/eboard")
 
     def __str__(self):
         info_string = self.first_name + " " + self.last_name
         # info_string += "\n" + self.eboard_position
         # info_string += "\n" + self.about_me
         return info_string
+
+    def delete(self, *args, **kwargs):
+        self.eboard_picture.delete()
+        super(EboardMember, self).delete(*args,**kwargs)
 
 
 # The recording class is used to store a song's audio recording

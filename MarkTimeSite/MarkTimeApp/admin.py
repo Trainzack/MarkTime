@@ -27,15 +27,15 @@ class BandPictureAdmin(admin.ModelAdmin):
 
 
 class EboardMemberAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'eboard_position','eboard_picture','is_active_eboard')
-    list_editable = ('is_active_eboard',)
-    list_filter = ('is_active_eboard',)
+    list_display = ('__str__', 'eboard_position', 'eboard_picture')
+    # list_editable = ('is_active_eboard',)
+    # list_filter = ('is_active_eboard',)
 
 
 class RecordingAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'in_books')
+    list_display = ('__str__', 'recording_file', 'in_books')
     list_editable = ('in_books',)
-    list_filter = ('songname', 'in_books', 'date_recorded')
+    list_filter = ('in_books', 'date_recorded')
 
 
 # Register model + manager for the admin site

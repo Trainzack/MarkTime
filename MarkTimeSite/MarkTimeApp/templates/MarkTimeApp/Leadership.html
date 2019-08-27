@@ -13,9 +13,43 @@
                     <div class="card-header">
                         <h5 class="card-text">{{ board_member.eboard_position }}</h5>
                     </div>
-                    <img class="card-img-top rounded" src="{{board_member.eboard_picture.picture_file.url}}" alt="{{board_member.eboard_picture.alt_text"/>
+                    <img class="card-img-top rounded" src="{{board_member.eboard_picture.url}}"/>
                     <div class="card-body">
                         <p class="card-text font-weight-bold">{{board_member.first_name}} {{board_member.last_name}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <br/><br/><hr/><br/><br/>
+
+        <div class="row row-eq-height">
+            <!-- For every eboard member make a boostrap card that fits into a boostrap column -->
+            {% for board_member in eboard_members %}
+            <div class="col-lg-3 col-md-4 col-6 d-flex align-items-stretch">
+                <div class="card my-3 text-center px-0 py-0 border-0 bg-site-default">
+                    <img class="card-img-top rounded shadow-lg border-right" src="{{board_member.eboard_picture.url}}"/>
+                    <div class="card-body my-0 py-1">
+                        <p class="card-text font-weight-bold my-0">{{ board_member.eboard_position }}</p>
+                        <p class="card-text font-italic my-0">{{board_member.first_name}} {{board_member.last_name}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+                <br/><br/><hr/><br/><br/>
+
+        <div class="row row-eq-height">
+            <!-- For every eboard member make a boostrap card that fits into a boostrap column -->
+            {% for board_member in eboard_members %}
+            <div class="col-lg-3 col-md-4 col-6 d-flex align-items-stretch">
+                <div class="card my-3 text-center px-0 py-0 border-0 bg-site-default">
+                    <img class="card-img-top rounded-circle shadow-lg border-bronco-thin" src="{{board_member.eboard_picture.url}}"/>
+                    <div class="card-body my-0 py-3">
+                        <p class="card-text font-weight-bold my-0">{{ board_member.eboard_position }}</p>
+                        <p class="card-text font-italic my-0">{{board_member.first_name}} {{board_member.last_name}}</p>
                     </div>
                 </div>
             </div>
