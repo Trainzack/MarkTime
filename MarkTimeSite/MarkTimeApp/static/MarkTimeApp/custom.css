@@ -1,5 +1,5 @@
 body{
-    background-color: #F4F5F4
+    background-color: #f1f1f1;
 }
 
 *{
@@ -11,11 +11,11 @@ body{
 }
 
 .text-color-bronco{
-    color: #1E4D2B
+    color: #1E4D2B;
 }
 
 .text-color-gold{
-    color: #ffcc00
+    color: #ffcc00;
 }
 
 .bg-site-default {
@@ -121,6 +121,24 @@ hr{
     color: #b38f00;
 }
 
+.music-pagination-link{
+    padding: 2px 2px 2px 2px;
+    background-color: #e6b800;
+    color: white;
+    font-weight: bold;
+    border-style: solid;
+    border-width 3px;
+    border-radius: 3px;
+    border-color: #e6b800;
+}
+
+.music-pagination-link:hover{
+    background-color: #b38f00;
+    color: white;
+    text-decoration: none;
+    border-color: #b38f00;
+}
+
 .history-link{
     font-weight: bold;
     text-align: center;
@@ -202,9 +220,5 @@ audio:focus{
 
 .submit-button{
     min-width: 300px;
-    width: 40%
-}
-
-.table-data{
-    vertical-align: middle;
+    width: 40%;
 }

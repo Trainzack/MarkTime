@@ -34,5 +34,13 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div class="mb-3 text-center">
+            {% if is_paginated %}
+                <a class="music-pagination-link mx-2" href="{% if page_obj.has_previous %} ?page=1 {% else %} # {% endif %}">First</a>
+                <a class="music-pagination-link mx-2" href="{% if page_obj.has_previous %} ?page={{ page_obj.previous_page_number }} {% else %} # {% endif %}">Prev</a>
+                <a class="music-pagination-link mx-2" href="{% if page_obj.has_next %} ?page={{ page_obj.next_page_number }} {% else %} # {% endif %}">Next</a>
+                <a class="music-pagination-link mx-2" href="{% if page_obj.has_next %} ?page={{ page_obj.paginator.num_pages }} {% else %} # {% endif %}">Last</a>
+            {% endif %}
+        </div>
     </div>
 {% endblock content %}

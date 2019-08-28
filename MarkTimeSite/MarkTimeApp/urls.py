@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .views import RecordingListView
 
 urlpatterns = [
     path('', views.index, name='MarkTime-Index'),
@@ -10,5 +11,6 @@ urlpatterns = [
     path('songs/', views.songs, name='MarkTime-Music'),
     path('history/', views.history_index, name='MarkTime-HistoryIndex'),
     path('history/<int:queried_year>', views.history_page, name='MarkTime-HistoryPage'),
-    path('contact-us', views.contact_us, name='MarkTime-Contact')
+    path('contact-us', views.contact_us, name='MarkTime-Contact'),
+    path('songs2.0/', RecordingListView.as_view(), name='Whatever')
 ]

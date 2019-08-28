@@ -4,6 +4,8 @@ from django.http import HttpResponse, Http404
 from .models import EboardMember, BandPicture, FAQ, Recording, Announcement, HistoryYear
 from .forms import ContactForm
 from django.template.loader import render_to_string
+from django.views.generic import ListView
+
 # Create your views here.
 
 
@@ -80,6 +82,14 @@ def songs(request):
         "in_music": True
     }
     return render(request, 'MarkTimeApp/Music.html', context)
+
+
+class RecordingListView(ListView):
+    model = Recording
+    template_name = 'MarkTimeApp/Music.html'
+    context_object_name = 'recordings'
+    ordering = ['songname']
+    paginate_by = 5
 
 
 def contact_us(request):
