@@ -1,8 +1,10 @@
 {% extends "MarkTimeApp/Base.html" %}
 {% block content %}
     <div class="container">
-        <h1 class="text-center"><b>Songs</b></h1>
-        <br/>
+        <div class="section-header">
+            <h3>Music</h3>
+            <hr/>
+        </div>
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
@@ -20,7 +22,7 @@
                         <!--<td>{{song.performer}}</td>-->
                         <td class="align-middle">
                             {% if song.recording_file %}
-                                <audio controls>
+                                <audio controls preload="metadata">
                                     <source src="{{ song.recording_file.url }}" type="audio/mpeg">
                                     <a href="{{ song.recording_file.url }}" download>Download Audio</a>
                                 </audio>

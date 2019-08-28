@@ -47,8 +47,8 @@
             <li class="nav-item nav {% if in_faq %}active{% endif %}">
               <a class="nav-link" href="{% url 'MarkTime-FAQ' %}">FAQ</a>
             </li>
-            <li class="nav-item nav {% if in_songs %}active{% endif %}">
-              <a class="nav-link" href="{% url 'MarkTime-Songs' %}">Songs</a>
+            <li class="nav-item nav {% if in_music %}active{% endif %}">
+              <a class="nav-link" href="{% url 'MarkTime-Music' %}">Music</a>
             </li>
             <li class="nav-item nav {% if in_contact %}active{% endif %}">
               <a class="nav-link" href="{% url 'MarkTime-Contact' %}">Contact Us</a>
@@ -78,7 +78,7 @@
             <a class="nav-item nav-link {% if in_leadership %}active{% endif %}" href="{% url 'MarkTime-Leadership' %}">Leadership</a>
             <a class="nav-item nav-link {% if in_history %}active{% endif %}"href="{% url 'MarkTime-HistoryIndex' %}">History</a>
             <a class="nav-item nav-link {% if in_faq %}active{% endif %}" href="{% url 'MarkTime-FAQ'%}">FAQ</a>
-            <a class="nav-item nav-link {% if in_songs %}active{% endif %}" href="{% url 'MarkTime-Songs'%}">Songs</a>
+            <a class="nav-item nav-link {% if in_songs %}active{% endif %}" href="{% url 'MarkTime-Music'%}">Songs</a>
             <a class="nav-item nav-link {% if in_contact %}active{% endif %}" href="{% url 'MarkTime-Contact'%}">Contact Us</a>
           </div>
         </div>

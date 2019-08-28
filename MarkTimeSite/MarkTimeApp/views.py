@@ -74,12 +74,12 @@ def faq(request):
 
 
 def songs(request):
-    recordings = Recording.objects.all()
+    recordings = Recording.objects.all().order_by('songname')
     context = {
         "recordings": recordings,
-        "in_songs": True
+        "in_music": True
     }
-    return render(request, 'MarkTimeApp/Songs.html',context)
+    return render(request, 'MarkTimeApp/Music.html', context)
 
 
 def contact_us(request):
