@@ -57,6 +57,19 @@ def history_page(request, queried_year):
     return render(request, 'MarkTimeApp/HistoryPage.html', context)
 
 
+def picture_detail(request, pic_id):
+    try:
+        picture_object = BandPicture.objects.get(pk=pic_id)
+    except BandPicture.DoesNotExist:
+        raise Http404("No picture with that id exists")
+
+    context={
+        "picture_object": picture_object,
+        "in_history": True
+    }
+    return render(request,'MarkTimeApp/PictureDetail.html', context)
+
+
 def leadership(request):
     eboard_members = EboardMember.objects.all()
     context = {

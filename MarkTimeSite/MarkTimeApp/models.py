@@ -52,6 +52,9 @@ class BandPicture(models.Model):
     def __str__(self):
         return str(self.picture_file)
 
+    def get_absolute_url(self):
+        return reverse('MarkTime-PictureDetail', args=[str(self.pk)])
+
     def delete(self, *args, **kwargs):
         self.picture_file.delete()
         super(BandPicture, self).delete(*args,**kwargs)

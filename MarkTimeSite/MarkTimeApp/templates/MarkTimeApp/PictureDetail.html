@@ -1,0 +1,13 @@
+{% extends "MarkTimeApp/Base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="section-header">
+            <h3>One of our many pictures</h3>
+            <hr/>
+        </div>
+
+        <img class="img-fluid img-thumbnail" src="{{ picture_object.picture_file.url }}"/>
+
+        <h3 class="my-3">{{picture_object.caption}}</h3>
+    </div>
+{% endblock content %}
