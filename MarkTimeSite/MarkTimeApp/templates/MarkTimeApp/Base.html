@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" href="{% static 'MarkTimeApp/favicon.png' %}" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Our own CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'MarkTimeApp/custom.css' %}"/>
     <!-- For Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -44,14 +45,19 @@
                 <a class="dropdown-item {% if in_history %}active{% endif %}" href="{% url 'MarkTime-HistoryIndex' %}">History</a>
               </div>
             </li>
-            <li class="nav-item nav {% if in_faq %}active{% endif %}">
-              <a class="nav-link" href="{% url 'MarkTime-FAQ' %}">FAQ</a>
-            </li>
             <li class="nav-item nav {% if in_music %}active{% endif %}">
               <a class="nav-link" href="{% url 'MarkTime-Music' %}">Music</a>
             </li>
-            <li class="nav-item nav {% if in_contact %}active{% endif %}">
-              <a class="nav-link" href="{% url 'MarkTime-Contact' %}">Contact Us</a>
+            <li class="nav-item nav {% if in_faq %}active{% endif %}">
+              <a class="nav-link" href="{% url 'MarkTime-FAQ' %}">FAQ</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle {% if in_contact or in_contact_perf %}active{% endif %}" href="#" id="navbarContactDropdown" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Contact Us</a>
+              <div class="dropdown-menu bg-dark-bronco" aria-labelledby="navbarContactDropdown">
+                <a class="dropdown-item {% if in_contact %}active{% endif %}" href="{% url 'MarkTime-Contact' %}">General Contact</a>
+                <a class="dropdown-item {% if in_contact_perf %}active{% endif %}" href="{% url 'MarkTime-Contact-Performance' %}">Performance Request</a>
+              </div>
             </li>
            </ul>
         </div>
@@ -112,7 +118,7 @@
       </div>
     </footer>
 
-    <!-- Optional JavaScript -->
+    <!-- Optional JavaScript Should extend these blocks on a per page basis -->
     {% block additional_scripts %}{% endblock additional_scripts %}
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

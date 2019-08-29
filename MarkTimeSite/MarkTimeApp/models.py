@@ -47,7 +47,7 @@ class BandPicture(models.Model):
 
     def delete(self, *args, **kwargs):
         self.picture_file.delete()
-        super(BandPicture,self).delete(*args,**kwargs)
+        super(BandPicture, self).delete(*args,**kwargs)
 
     # Overridden save method that resizes images to 1280x720 Currently not in use
     # def save(self, *args, **kwargs):

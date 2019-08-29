@@ -25,7 +25,7 @@
             <!-- For loop for announcements here -->
             {% for announcement in announcements %}
                 <p class="mb-0"><b>{{ announcement.title }}:</b></p>
-                <p class="mb-4">{{ announcement.information }}</p>
+                <p class="mb-4">{{ announcement.information|linebreaks }}</p>
             {% endfor %}
         </div> <!-- End announcements -->
     {% endif %}

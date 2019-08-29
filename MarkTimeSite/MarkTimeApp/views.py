@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, Http404
 from .models import EboardMember, BandPicture, FAQ, Recording, Announcement, HistoryYear
-from .forms import ContactForm
+from .forms import ContactForm, PerformanceRequestForm
 from django.template.loader import render_to_string
 from django.views.generic import ListView
 
@@ -98,15 +98,18 @@ def contact_us(request):
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
+            # Create the subject of the email
             subject = form.cleaned_data['name'] + "'s Contact Form Response"
+
+            # Use the form's responses to create context to pass into ContactResponse.txt
             email_message_context = {
                 "name": form.cleaned_data['name'],
-                "email": form.cleaned_data['contacter_email'],
+                "email": form.cleaned_data['email'],
                 "instrument": form.cleaned_data['instrument'],
                 "form_message": form.cleaned_data['message']
             }
             try:
-
+                # Fills in the ContactResponse.txt template with the form's input and mail's it to the designated email
                 send_mail(subject,
                           render_to_string('MarkTimeApp/ContactResponse.txt', email_message_context),
                           'christianmunoz110@gmail.com',
@@ -115,3 +118,32 @@ def contact_us(request):
                 return HttpResponse('Invalid header found.')
             return redirect('MarkTime-Index')
     return render(request, 'MarkTimeApp/ContactUs.html', {'form': form, 'in_contact': True})
+
+
+def hire_us(request):
+    if request.method == 'GET':
+        form = PerformanceRequestForm()
+    else:
+        form = PerformanceRequestForm(request.POST)
+        if form.is_valid():
+            # Create the subject of the email
+            subject = form.cleaned_data['name'] + " Requests a Pep Band Performance"
+
+            # Use the form's responses to create context to pass into ContactResponse.txt
+            email_message_context = {
+                "name": form.cleaned_data['name'],
+                "email": form.cleaned_data['email'],
+                "event_name": form.cleaned_data['event_name'],
+                "event_details": form.cleaned_data['event_details'],
+            }
+            try:
+                # Fill in the ContactResponse.txt template with the generated
+                # context and mail it to the designated email
+                send_mail(subject,
+                          render_to_string('MarkTimeApp/PerformanceRequestResponse.txt', email_message_context),
+                          'christianmunoz110@gmail.com',
+                          ['christianmunoz110@gmail.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('MarkTime-Index')
+    return render(request, 'MarkTimeApp/ContactUsPerformance.html', {'form': form, 'in_contact_perf': True})
