@@ -1,5 +1,6 @@
 from django.db import models
 from .validators import validate_recording_file_extension
+from django.urls import reverse
 from PIL import Image
 import datetime
 # Create your models here.
@@ -14,6 +15,9 @@ class HistoryYear(models.Model):
 
     def __str__(self):
         return "History for the year " + str(self.year)
+
+    def get_absolute_url(self):
+        return reverse('MarkTime-HistoryPage', args=[str(self.year)])
 
     class Meta:
         ordering = ["-year"]
