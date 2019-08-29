@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import EboardMember, HistoryYear, BandPicture, Recording, FAQ, Announcement
+from .models import EboardMember, HistoryYear, BandPicture, Song, FAQ, Announcement
 # Register your models here.
 admin.site.unregister(Group)
 admin.site.register(FAQ)
@@ -42,4 +42,4 @@ class RecordingAdmin(admin.ModelAdmin):
 admin.site.register(BandPicture, BandPictureAdmin)
 admin.site.register(EboardMember, EboardMemberAdmin)
 admin.site.register(HistoryYear, HistoryYearAdmin)
-admin.site.register(Recording, RecordingAdmin)
+admin.site.register(Song, RecordingAdmin)

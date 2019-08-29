@@ -15,6 +15,9 @@ class HistoryYear(models.Model):
     def __str__(self):
         return "History for the year " + str(self.year)
 
+    class Meta:
+        ordering = ["-year"]
+
 
 # This class exists to aid in deleting BandPictures through the admin page
 # It allows a group of BandPicture to be selected and all delete their picture files upon deletion
@@ -55,6 +58,9 @@ class BandPicture(models.Model):
     #    image = Image.open(self.picture_file.path)
     #    image = image.resize((1280,720),Image.ANTIALIAS)
     #    image.save(self.picture_file.path)
+
+    class Meta:
+        ordering = ["date_taken"]
 
 
 # This class exists to aid in deleting BandPictures through the admin page
@@ -107,26 +113,33 @@ class EboardMember(models.Model):
         self.eboard_picture.delete()
         super(EboardMember, self).delete(*args,**kwargs)
 
+    class Meta:
+        ordering = ["first_name"]
+
 
 # The recording class is used to store a song's audio recording
 # Fields include the recording's file (which is validated using a custom validator), the date is was recorded,
 # who performed the song, and the event it was performed at.
-class Recording(models.Model):
+class Song(models.Model):
+    # recording_file can be null since a song might not have a recording of it
     recording_file = models.FileField(upload_to='recordings', validators=[validate_recording_file_extension], null=True)
     date_recorded = models.DateField(default=datetime.date.today)
-    performer = models.CharField(max_length=50)
-    event = models.CharField(max_length=50)
-    songname = models.CharField(max_length=50, default='')
+    # performer = models.CharField(max_length=50)
+    # event = models.CharField(max_length=50)
+    song_name = models.CharField(max_length=50, default='')
     artist = models.CharField(max_length=50, default='')
     in_books = models.BooleanField(default=False)
     # associated_song = models.ForeignKey(Song,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
-        return str(self.songname)
+        return str(self.song_name)
 
     def delete(self, *args, **kwargs):
         self.recording_file.delete()
-        super(Recording, self).delete(*args, **kwargs)
+        super(Song, self).delete(*args, **kwargs)
+
+    class Meta:
+        ordering = ["song_name"]
 
 
 # FAQ class is used to store FAQ regarding the band

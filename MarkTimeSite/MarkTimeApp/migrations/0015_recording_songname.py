@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='recording',
-            name='songname',
+            name='song_name',
             field=models.CharField(default='', max_length=50),
         ),
     ]

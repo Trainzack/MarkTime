@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, Http404
-from .models import EboardMember, BandPicture, FAQ, Recording, Announcement, HistoryYear
+from .models import EboardMember, BandPicture, FAQ, Song, Announcement, HistoryYear
 from .forms import ContactForm, PerformanceRequestForm
 from django.template.loader import render_to_string
 from django.views.generic import ListView
@@ -76,7 +76,7 @@ def faq(request):
 
 
 def songs(request):
-    recordings = Recording.objects.all().order_by('songname')
+    recordings = Song.objects.all().order_by('song_name')
     context = {
         "recordings": recordings,
         "in_music": True
@@ -85,10 +85,10 @@ def songs(request):
 
 
 class RecordingListView(ListView):
-    model = Recording
+    model = Song
     template_name = 'MarkTimeApp/Music.html'
     context_object_name = 'recordings'
-    ordering = ['songname']
+    ordering = ['song_name']
     paginate_by = 5
 
 
