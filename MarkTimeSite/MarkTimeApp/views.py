@@ -5,8 +5,16 @@ from .models import EboardMember, BandPicture, FAQ, Song, Announcement, HistoryY
 from .forms import ContactForm, PerformanceRequestForm
 from django.template.loader import render_to_string
 from django.views.generic import ListView
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 # Create your views here.
+
+
+def handler404(request, exception, template_name="MarkTimeApp/Custom404.html"):
+    response = render_to_response('MarkTimeApp/Custom404.html')
+    response.status_code = 404
+    return response
 
 
 def index(request):

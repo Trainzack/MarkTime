@@ -23,5 +23,7 @@ urlpatterns = [
     path('MarkTime/', include('MarkTimeApp.urls')),
 ]
 
+handler404 = 'MarkTimeApp.views.handler404'
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
