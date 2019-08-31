@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MarkTimeApp.apps.MarktimeappConfig',
     'crispy_forms',
-    'storages'
+    'storages',
+    'sorl.thumbnail'
 ]
 
 MIDDLEWARE = [

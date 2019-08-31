@@ -1,14 +1,12 @@
 <!-- Probably getting rid of this carousel if we prefer the album -->
-{% extends "MarkTimeApp/PageWithCarousel.html" %}
+{% extends "MarkTimeApp/Base.html" %}
+{% load thumbnail %}
 {% block content %}
     <div class="container">
-        <!-- If no carousel was generated for this page, create a div for section header -->
-        {% if not page_pictures %}
             <div class="section-header">
-                <h3>The Bronco Pep Band of {{history_object.year}} - {{history_object.year|add:"1"}}</h3>
+                <h3>Summary for {{history_object.year}} - {{history_object.year|add:"1"}}</h3>
                 <hr/>
             </div>
-        {% endif %}
         <p>{{history_object.summary|linebreaks}}</p>
     </div>
 
@@ -25,7 +23,12 @@
                 {% for picture in page_pictures %}
                     <div class="col-4 col-md-3">
                         <!-- The picture link uses BandPicture.get_absolute_url to determine the picture's detail page -->
-                        <a href="{{picture.get_absolute_url}}"><img class="img-fluid img-thumbnail my-2" src="{{ picture.picture_file.url }}"/></a>
+                        <a href="{{picture.get_absolute_url}}">
+                            <!-- sorl.thumbnail is used here to create/load a thumbnail of the image (saving space) -->
+                            {% thumbnail picture.picture_file "320x180" crop="center" as im %}
+                                <img class="img-fluid img-thumbnail my-2" src="{{ im.url }}"/>
+                            {% endthumbnail %}
+                        </a>
                     </div>
                 {% endfor %}
             </div>

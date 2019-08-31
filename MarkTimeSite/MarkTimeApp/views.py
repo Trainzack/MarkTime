@@ -52,7 +52,7 @@ def history_page(request, queried_year):
         "history_object": history_object,
         # Get the bandpictures associated with this history year
         "page_pictures": history_object.bandpicture_set.all(),
-        "in_history": True
+        "in_history": True,
     }
     return render(request, 'MarkTimeApp/HistoryPage.html', context)
 

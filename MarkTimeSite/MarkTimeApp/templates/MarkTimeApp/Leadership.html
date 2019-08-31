@@ -55,5 +55,21 @@
             </div>
             {% endfor %}
         </div>
+
+        <br/><br/><hr/><br/><br/>
+        <div class="row row-eq-height">
+            {% for board_member in eboard_members %}
+                <div class="offset-1 col-2">
+                    <div class="card mt-1 mb-5 px-0 py-0 border-0 bg-site-default">
+                        <img class="card-img-top rounded-circle shadow-lg border-bronco-thin" src="{{board_member.eboard_picture.url}}"/>
+                    </div>
+                </div>
+                <div class="col-8 mb-4">
+                    <p><b>{{ board_member.eboard_position }}</b> - {{ board_member.first_name }} {{ board_member.last_name }}</p>
+                    <p>{{ board_member.about_me }}</p>
+                </div>
+                <div class="col-1"></div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
