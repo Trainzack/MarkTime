@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@)2z3)r*d@f71f-je9@43dqslal(hi=+j46%)46cprj&5#@aa='
+SECRET_KEY = os.environ.get('MARK_TIME_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -132,11 +132,11 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'christianmunoz110@gmail.com'
-EMAIL_HOST_PASSWORD = 'yzujbwnloebcspzh'
+EMAIL_HOST_PASSWORD = os.environ.get('MARK_TIME_EMAIL_HOST_PASSWORD')
 
-AWS_ACCESS_KEY_ID = 'AKIAXVYUYLOH5QEWBQOE'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'django-marktime-files'
+AWS_ACCESS_KEY_ID = os.environ.get('MARK_TIME_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('MARK_TIME_AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('MARK_TIME_AWS_STORAGE_BUCKET_NAME')
 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
