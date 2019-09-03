@@ -1,5 +1,6 @@
 from django.db import models
 from .validators import validate_recording_file_extension
+from django.urls import reverse
 from PIL import Image
 import datetime
 # Create your models here.
@@ -8,12 +9,18 @@ import datetime
 # This class is used to store a band's year in review, it contains the year, a summary of what happened in that year,
 # and pictures associated with that year.
 class HistoryYear(models.Model):
-    year = models.IntegerField()
+    year = models.IntegerField(unique=True)
     summary = models.TextField()
     # Place another attribute here for keys to multiple pictures
 
     def __str__(self):
         return "History for the year " + str(self.year)
+
+    def get_absolute_url(self):
+        return reverse('MarkTime-HistoryPage', args=[str(self.year)])
+
+    class Meta:
+        ordering = ["-year"]
 
 
 # This class exists to aid in deleting BandPictures through the admin page
@@ -32,29 +39,44 @@ class BandPictureQuerySet(models.QuerySet):
 class BandPicture(models.Model):
     objects = BandPictureQuerySet.as_manager()
 
-    picture_file = models.ImageField(upload_to="pictures")
+    picture_file = models.ImageField(upload_to="pictures/band", null=False)
     on_front_page = models.BooleanField()
+    display_priority = models.IntegerField(default=0)
     caption = models.TextField(max_length=200)
     alt_text = models.TextField(max_length=200)
     date_taken = models.DateField(default=datetime.date.today)
     # NOTE: Consider removing associated_history_year field and instead populate a history year's page with pictures
     # by using database queries filtered by dates instead
-    associated_history_year = models.ForeignKey(HistoryYear, on_delete=models.SET_NULL, null=True,blank=True)
+    associated_history_year = models.ForeignKey(HistoryYear, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return str(self.picture_file)
 
+    def get_absolute_url(self):
+        return reverse('MarkTime-PictureDetail', args=[str(self.pk)])
+
     def delete(self, *args, **kwargs):
         self.picture_file.delete()
-        super(BandPicture,self).delete(*args,**kwargs)
+        super(BandPicture, self).delete(*args,**kwargs)
 
     # Overridden save method that resizes images to 1280x720 Currently not in use
-    #def save(self, *args, **kwargs):
+    # def save(self, *args, **kwargs):
     #    super(BandPicture,self).save(*args, **kwargs)
     #    image = Image.open(self.picture_file.path)
     #    image = image.resize((1280,720),Image.ANTIALIAS)
     #    image.save(self.picture_file.path)
 
+    class Meta:
+        ordering = ["date_taken"]
+
+
+# This class exists to aid in deleting BandPictures through the admin page
+# It allows a group of BandPicture to be selected and all delete their picture files upon deletion
+class EboardMemberQuerySet(models.QuerySet):
+    def delete(self, *args, **kwargs):
+        for obj in self:
+            obj.eboard_picture.delete()
+        super(EboardMemberQuerySet, self).delete(*args, **kwargs)
 
 
 # This class is used to store an eboard member
@@ -62,6 +84,8 @@ class BandPicture(models.Model):
 # Eboard member objects have a one to one relationship with a given picture. Ideally that picture
 # is of the eboard member.
 class EboardMember(models.Model):
+    objects = EboardMemberQuerySet.as_manager()
+
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
 
@@ -78,14 +102,13 @@ class EboardMember(models.Model):
         ('Property Manager', 'Property Manager'),
         ('Historian', 'Historian'),
         ('Webmaster', 'Webmaster'),
-        ('Section Leader', 'Section Leader')
+        ('Section Leader', 'Section Leader'),
+        ('Advisor', 'Advisor')
     )
     eboard_position = models.CharField(max_length=20, choices=EBOARD_POSITIONS)
     about_me = models.TextField()
-
-    # Create a one to one relationship with a picture of the eboard member
-    # on_delete set to SET_NULL so a picture being deleted doesn't delete the eboard member
-    eboard_picture = models.OneToOneField(BandPicture,on_delete=models.SET_NULL,null=True,blank=True)
+    # is_active_eboard = models.BooleanField(default=True)
+    eboard_picture = models.ImageField(upload_to="pictures/eboard")
 
     def __str__(self):
         info_string = self.first_name + " " + self.last_name
@@ -93,25 +116,37 @@ class EboardMember(models.Model):
         # info_string += "\n" + self.about_me
         return info_string
 
+    def delete(self, *args, **kwargs):
+        self.eboard_picture.delete()
+        super(EboardMember, self).delete(*args,**kwargs)
+
+    class Meta:
+        ordering = ["first_name"]
+
 
 # The recording class is used to store a song's audio recording
 # Fields include the recording's file (which is validated using a custom validator), the date is was recorded,
 # who performed the song, and the event it was performed at.
-class Recording(models.Model):
+class Song(models.Model):
+    # recording_file can be null since a song might not have a recording of it
     recording_file = models.FileField(upload_to='recordings', validators=[validate_recording_file_extension], null=True)
-    date_recorded = models.DateField
-    performer = models.CharField(max_length=50)
-    event = models.CharField(max_length=50)
-    songname = models.CharField(max_length=50, default='')
+    date_recorded = models.DateField(default=datetime.date.today)
+    # performer = models.CharField(max_length=50)
+    # event = models.CharField(max_length=50)
+    song_name = models.CharField(max_length=50, default='')
     artist = models.CharField(max_length=50, default='')
+    in_books = models.BooleanField(default=False)
     # associated_song = models.ForeignKey(Song,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
-        return str(self.recording_file)
+        return str(self.song_name)
 
     def delete(self, *args, **kwargs):
         self.recording_file.delete()
-        super(Recording,self).delete(*args,**kwargs)
+        super(Song, self).delete(*args, **kwargs)
+
+    class Meta:
+        ordering = ["song_name"]
 
 
 # FAQ class is used to store FAQ regarding the band
@@ -120,4 +155,12 @@ class FAQ(models.Model):
     answer = models.TextField(max_length=1000)
 
     def __str__(self):
-        return "Q: " + self.question + " A: " + self.answer
+        return "Q: " + self.question
+
+
+class Announcement(models.Model):
+    title = models.CharField(max_length=30)
+    information = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.title

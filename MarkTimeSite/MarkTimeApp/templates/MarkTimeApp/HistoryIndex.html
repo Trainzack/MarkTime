@@ -1,0 +1,16 @@
+{% extends "MarkTimeApp/Base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="section-header">
+            <h3>Bronco Pep Band History Index</h3>
+            <hr/>
+        </div>
+        <div class="row justify-content-center">
+            {% for history_object in history_objects %}
+                <a class="col-lg-2 col-md-3 col-4 history-link mb-3 mx-1" href="{{ history_object.get_absolute_url }}">
+                    {{history_object.year}} - {{history_object.year|add:"1"}}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

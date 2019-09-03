@@ -1,0 +1,7 @@
+Someone has filled out the contact form on the website.
+Here is the information they provided.
+
+Name: {{ name }}
+Email: {{ email }}
+Instrument: {{ instrument }}
+Message: {{ form_message }}

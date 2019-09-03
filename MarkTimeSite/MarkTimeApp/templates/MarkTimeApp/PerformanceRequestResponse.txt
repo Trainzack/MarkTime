@@ -1,0 +1,10 @@
+Someone has requested that the Bronco Pep Band perform at an event.
+Here are the details they provided.
+
+Name: {{ name }}
+Email: {{ email }}
+
+Event Name: {{ event_name }}
+
+Event Details:
+{{ event_details }}
