@@ -212,10 +212,20 @@ audio:focus{
 }
 
 /* These two rules are used to style form inputs, labels, and submit buttons*/
-.control-label, .contact-form-input{
-    min-width: 350px;
-    width: 80%;
-    text-align: left;
+@media only screen and (min-width: 768px){
+    .control-label, .contact-form-input{
+        min-width: 350px;
+        width: 80%;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .control-label, .contact-form-input{
+        min-width: 300px;
+        width: 80%;
+        text-align: left;
+    }
 }
 
 .submit-button{
