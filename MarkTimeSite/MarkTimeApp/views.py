@@ -25,7 +25,7 @@ def index(request):
         "announcements": announcements,
         "in_home": True
     }
-    return render(request, 'MarkTimeApp/index.html', context)
+    return render(request, 'MarkTimeApp/Index.html', context)
     # return HttpResponse("Dummy response for the index page")
 
 
