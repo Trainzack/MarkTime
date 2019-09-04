@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('MARK_TIME_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://mark-time-deploy-v2.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mark-time-deploy-v2.herokuapp.com']
 
 
 # Application definition
