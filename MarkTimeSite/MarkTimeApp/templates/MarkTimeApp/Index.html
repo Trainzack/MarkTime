@@ -24,10 +24,12 @@
 
             <!-- For loop for announcements here -->
             {% for announcement in announcements %}
-                <p class="announcement-title border-dark">
-                    <b>{{ announcement.title }}:</b>
-                </p>
-                <p class="announcement-text border-dark">{{ announcement.information|linebreaks }}</p>
+                <div class="announcement-title mt-1 mb-1">
+                    <p>
+                        <b>{{ announcement.title }}:</b>
+                    </p>
+                </div>
+                <div class="announcement-text mt-0 mb-3">{{ announcement.information|linebreaks }}</div>
             {% endfor %}
         </div> <!-- End announcements -->
     {% endif %}

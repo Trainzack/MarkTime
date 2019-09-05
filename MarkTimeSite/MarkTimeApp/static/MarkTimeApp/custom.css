@@ -243,15 +243,16 @@ audio:focus{
     width: 40%;
 }
 
-.announcement-title{
+.announcement-title p{
     padding-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
-.announcement-text{
+.announcement-text p{
     padding-top: 0px;
     padding-bottom: 0px;
     margin-top: 0px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0px;
 }
