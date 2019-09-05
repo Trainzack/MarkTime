@@ -24,10 +24,10 @@
 
             <!-- For loop for announcements here -->
             {% for announcement in announcements %}
-                <h5 class="mb-0 pb-0">
+                <p class="announcement-title">
                     <b>{{ announcement.title }}:</b>
-                </h5>
-                <p>{{ announcement.information|linebreaks }}</p>
+                </p>
+                <p class="announcement-text">{{ announcement.information|linebreaks }}</p>
             {% endfor %}
         </div> <!-- End announcements -->
     {% endif %}

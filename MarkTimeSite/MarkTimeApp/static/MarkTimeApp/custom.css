@@ -242,3 +242,12 @@ audio:focus{
     min-width: 300px;
     width: 40%;
 }
+
+.announcement-title{
+    margin-bottom: 0px;
+}
+
+.announcement-text{
+    margin-top: 0px;
+    margin-bottom: 1.5rem;
+}
