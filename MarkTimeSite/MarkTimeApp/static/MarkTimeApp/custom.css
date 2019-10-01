@@ -42,10 +42,20 @@ body{
     background-color: rgba(0,180,0,0.025)
 }
 
-.banner{
-    width: 60%;
-    max-width: 600px;
-    min-width: 400px;
+@media only screen and (min-width: 768px){
+    .banner{
+        width: 60%;
+        max-width: 600px;
+        min-width: 400px;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .banner{
+        width: 60%;
+        max-width: 400px;
+        min-width: 300px;
+    }
 }
 
 @media only screen and (min-width: 768px){
@@ -212,13 +222,37 @@ audio:focus{
 }
 
 /* These two rules are used to style form inputs, labels, and submit buttons*/
-.control-label, .contact-form-input{
-    min-width: 350px;
-    width: 80%;
-    text-align: left;
+@media only screen and (min-width: 768px){
+    .control-label, .contact-form-input{
+        min-width: 350px;
+        width: 80%;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .control-label, .contact-form-input{
+        min-width: 300px;
+        width: 80%;
+        text-align: left;
+    }
 }
 
 .submit-button{
     min-width: 300px;
     width: 40%;
+}
+
+.announcement-title p{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.announcement-text p{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
